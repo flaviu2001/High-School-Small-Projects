@@ -1,0 +1,25 @@
+<html>
+	<head>
+		<title>Log in</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<p> User name: </p> <input type = "text" id = "username">
+		<p> Password: </p> <input type = "text" id = "password">
+		<button id = "login"> Log in </button>
+		<p id = message></p>
+		<script>
+			$("#login").click(function(){
+				var un = $("#username").val();
+				var pw = $("#password").val();
+				if(un == "root" && pw == "rootpass"){
+					$("#message").empty();
+					$("#message").append("Success");
+				}else{
+					$("#message").empty();
+					$("#message").append("Nope");						
+				}	
+			});
+		</script>
+	</body>
+</html>

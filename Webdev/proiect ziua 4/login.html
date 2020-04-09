@@ -1,0 +1,138 @@
+<html>
+	<head>
+		<title>login</title>
+		<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<style>
+			#usr{
+				color:white;
+				font-size:36px;			
+			}
+			#ps{
+				color:white;
+				font-size:36px;			
+			}
+			#btn {
+				-moz-box-shadow: 3px 4px 0px 0px #1c1b18;
+				-webkit-box-shadow: 3px 4px 0px 0px #1c1b18;
+				box-shadow: 3px 4px 0px 0px #1c1b18;
+				background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #cf9d08), color-stop(1, #ccc2a6));
+				background:-moz-linear-gradient(top, #cf9d08 5%, #ccc2a6 100%);
+				background:-webkit-linear-gradient(top, #cf9d08 5%, #ccc2a6 100%);
+				background:-o-linear-gradient(top, #cf9d08 5%, #ccc2a6 100%);
+				background:-ms-linear-gradient(top, #cf9d08 5%, #ccc2a6 100%);
+				background:linear-gradient(to bottom, #cf9d08 5%, #ccc2a6 100%);
+				filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#cf9d08', endColorstr='#ccc2a6',GradientType=0);
+				background-color:#cf9d08;
+				-moz-border-radius:18px;
+				-webkit-border-radius:18px;
+				border-radius:18px;
+				border:1px solid #a37a1b;
+				display:inline-block;
+				cursor:pointer;
+				color:black;
+				font-family:Trebuchet MS;
+				font-size:16px;
+				padding:7px 12px;
+				text-decoration:none;
+				text-shadow:0px 1px 0px #ffffff;
+				}
+			#btn {
+				background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ccc2a6), color-stop(1, #cf9d08));
+				background:-moz-linear-gradient(top, #ccc2a6 5%, #cf9d08 100%);
+				background:-webkit-linear-gradient(top, #ccc2a6 5%, #cf9d08 100%);
+				background:-o-linear-gradient(top, #ccc2a6 5%, #cf9d08 100%);
+				background:-ms-linear-gradient(top, #ccc2a6 5%, #cf9d08 100%);
+				background:linear-gradient(to bottom, #ccc2a6 5%, #cf9d08 100%);
+				filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ccc2a6', endColorstr='#cf9d08',GradientType=0);
+				background-color:#ccc2a6;
+			}
+			#btn:active {
+				position:relative;
+				top:1px;
+			}
+			#button {
+				-moz-box-shadow: 3px 4px 0px 0px #1c1b18;
+				-webkit-box-shadow: 3px 4px 0px 0px #1c1b18;
+				box-shadow: 3px 4px 0px 0px #1c1b18;
+				background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #cf9d08), color-stop(1, #ccc2a6));
+				background:-moz-linear-gradient(top, #cf9d08 5%, #ccc2a6 100%);
+				background:-webkit-linear-gradient(top, #cf9d08 5%, #ccc2a6 100%);
+				background:-o-linear-gradient(top, #cf9d08 5%, #ccc2a6 100%);
+				background:-ms-linear-gradient(top, #cf9d08 5%, #ccc2a6 100%);
+				background:linear-gradient(to bottom, #cf9d08 5%, #ccc2a6 100%);
+				filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#cf9d08', endColorstr='#ccc2a6',GradientType=0);
+				background-color:#cf9d08;
+				-moz-border-radius:18px;
+				-webkit-border-radius:18px;
+				border-radius:18px;
+				border:1px solid #a37a1b;
+				display:inline-block;
+				cursor:pointer;
+				color:black;
+				font-family:Trebuchet MS;
+				font-size:16px;
+				padding:7px 4px;
+				text-decoration:none;
+				text-shadow:0px 1px 0px #ffffff;
+			}
+			#button {
+				background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ccc2a6), color-stop(1, #cf9d08));
+				background:-moz-linear-gradient(top, #ccc2a6 5%, #cf9d08 100%);
+				background:-webkit-linear-gradient(top, #ccc2a6 5%, #cf9d08 100%);
+				background:-o-linear-gradient(top, #ccc2a6 5%, #cf9d08 100%);
+				background:-ms-linear-gradient(top, #ccc2a6 5%, #cf9d08 100%);
+				background:linear-gradient(to bottom, #ccc2a6 5%, #cf9d08 100%);
+				filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ccc2a6', endColorstr='#cf9d08',GradientType=0);
+				background-color:#ccc2a6;
+			}
+			#button:active {
+				position:relative;
+				top:1px;
+			}
+			.all{
+				padding-top:13%;
+				padding-left:45%;
+			}
+			html{ 
+				background: url('https://images5.alphacoders.com/314/thumb-1920-314903.jpg') no-repeat fixed; 
+				-webkit-background-size: cover;
+				-moz-background-size: cover;
+				-o-background-size: cover;
+				background-size: cover;
+			}
+
+
+		</style>
+	</head>
+	<body>
+		<div class = "all">
+			<p id = "usr">Username</p>
+			<input type = "text" id = "username" placeholder = "Username"/>
+			<p id = "ps">Password</p>
+			<input type = "password" id = "password" placeholder = "Password">
+			<br><br>
+			<button id = "btn">Login</button>
+			<input type="button" onclick="location.href='http://localhost:8000/register.html';" value="Register" id = "button"/>
+		</div>
+		<script>
+			$("#btn").click(function(){
+				var a1 = $("#username").val();
+				var a2 = $("#password").val();
+				$.get("/selectall/", function(data){
+					var nr = data.length;
+					for (var i = 0; i < nr; ++i)
+						if(data[i].username == a1 && data[i].password == a2){
+							document.cookie = data[i].id;
+							ok = true;
+							var ok = confirm("Succesful login. Do you want to go to the main page?");
+							if(ok){
+								window.location.href = "http://localhost:8000/quiz.html";
+							}
+							return;
+						}
+					alert("Username or password wrong");
+				});
+			});
+		</script>
+	</body>
+</html>

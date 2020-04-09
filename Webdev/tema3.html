@@ -1,0 +1,44 @@
+<html>
+	<head>
+		<title>tema</title>
+		<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<p id = "par1">every</p>
+		<p id = "par2">body</p>
+		<p id = "par3">lies</p>
+		<div class = "cls">Nothing yet</div>
+		<script>
+			$("#par1").mouseenter(function(){
+				$("#par1").css("background-color", "orange");			
+			});
+			$("#par1").mouseleave(function(){
+				$("#par1").css("background-color", "white");			
+			});
+			$("#par2").mouseenter(function(){
+				$("#par2").css("background-color", "blue");			
+			});
+			$("#par2").mouseleave(function(){
+				$("#par2").css("background-color", "white");			
+			});
+			$("#par3").mouseenter(function(){
+				$("#par3").css("background-color", "green");			
+			});
+			$("#par3").mouseleave(function(){
+				$("#par3").css("background-color", "white");			
+			});
+			$("#par1").click(function(){
+				$(".cls").empty();
+				$(".cls").append("You clicked paragraph 1. Congrats. You have hands");			
+			});
+			$("#par2").click(function(){
+				$(".cls").empty();
+				$(".cls").append("You clicked paragraph 2. Congrats. You have hands");			
+			});
+			$("#par3").click(function(){
+				$(".cls").empty();
+				$(".cls").append("You clicked paragraph 3. Congrats. You have hands");			
+			});
+		</script>
+	</body>
+</html>

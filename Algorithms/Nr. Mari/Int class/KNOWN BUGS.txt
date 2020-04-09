@@ -1,0 +1,9 @@
+The code
+
+Int x = "999999999999";
+cout << 2*x;
+
+will not work properly because it does multiplication of 2 and x as a normal integer.
+
+
+Quick workaround: Use it as x*2 instead of 2*x.

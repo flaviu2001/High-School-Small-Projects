@@ -1,0 +1,20 @@
+<html>
+	<head>
+		<title>index</title>
+		<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<button id = "btn1">All laptops</button>
+		<div class = "par"></div>
+		<script>
+			$("#btn1").click(function(){
+				$.get("/selectall", function(data){
+					$(".par").empty();
+					var nr = data.length;
+					for (var i = 0; i < nr; ++i)
+						$(".par").append(data[i].id + " " + data[i].cpu + " " + data[i].gpu + " " + data[i].ram + " " + data[i].mem + " " + data[i].resx + " " + data[i].resy + "<br>");
+				});
+			});
+		</script>
+	</body>
+</html>

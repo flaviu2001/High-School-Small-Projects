@@ -1,0 +1,134 @@
+<html>
+	<head>
+		<title>register</title>
+		<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<style>
+			#randomfield { 
+			-webkit-touch-callout: none;
+			    -webkit-user-select: none;
+			    -khtml-user-select: none;
+			    -moz-user-select: none;
+			    -ms-user-select: none;
+			    user-select: none; 
+			  width: 200px;
+			  color: black;
+			  border-color: black;
+			  text-align: center;
+			  font-size: 40px;
+			  background-image: url('http://4.bp.blogspot.com/-EEMSa_GTgIo/UpAgBQaE6-I/AAAAAAAACUE/jdcxZVXelzA/s1600/ca.png');
+			}
+			html { 
+				background: url('https://images5.alphacoders.com/314/thumb-1920-314903.jpg') no-repeat; 
+				-webkit-background-size: cover;
+				-moz-background-size: cover;
+				-o-background-size: cover;
+				background-size: cover;
+			}
+			.all{
+				padding-top:4%;
+				padding-left:47%;
+			}
+			#btn {
+				-moz-box-shadow: 3px 4px 0px 0px #1c1b18;
+				-webkit-box-shadow: 3px 4px 0px 0px #1c1b18;
+				box-shadow: 3px 4px 0px 0px #1c1b18;
+				background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #cf9d08), color-stop(1, #ccc2a6));
+				background:-moz-linear-gradient(top, #cf9d08 5%, #ccc2a6 100%);
+				background:-webkit-linear-gradient(top, #cf9d08 5%, #ccc2a6 100%);
+				background:-o-linear-gradient(top, #cf9d08 5%, #ccc2a6 100%);
+				background:-ms-linear-gradient(top, #cf9d08 5%, #ccc2a6 100%);
+				background:linear-gradient(to bottom, #cf9d08 5%, #ccc2a6 100%);
+				filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#cf9d08', endColorstr='#ccc2a6',GradientType=0);
+				background-color:#cf9d08;
+				-moz-border-radius:18px;
+				-webkit-border-radius:18px;
+				border-radius:18px;
+				border:1px solid #a37a1b;
+				display:inline-block;
+				cursor:pointer;
+				color:black;
+				font-family:Trebuchet MS;
+				font-size:16px;
+				padding:7px 36px;
+				text-decoration:none;
+				text-shadow:0px 1px 0px #ffffff;
+			}
+			#btn {
+				background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ccc2a6), color-stop(1, #cf9d08));
+				background:-moz-linear-gradient(top, #ccc2a6 5%, #cf9d08 100%);
+				background:-webkit-linear-gradient(top, #ccc2a6 5%, #cf9d08 100%);
+				background:-o-linear-gradient(top, #ccc2a6 5%, #cf9d08 100%);
+				background:-ms-linear-gradient(top, #ccc2a6 5%, #cf9d08 100%);
+				background:linear-gradient(to bottom, #ccc2a6 5%, #cf9d08 100%);
+				filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ccc2a6', endColorstr='#cf9d08',GradientType=0);
+				background-color:#ccc2a6;
+			}
+			#btn:active {
+				position:relative;
+				top:1px;
+			}
+
+		</style>		
+	</head>
+	<body onLoad="ChangeCaptcha()">
+		<div class = "all">
+			<p style="color:white">Username</p>
+			<input type = "text" id = "user" placeholder = "Username"/>
+			<p style="color:white">Password</p>
+			<input type = "text" id = "pass" placeholder = "Password"/>
+			<p style="color:white">Retype password</p>
+			<input type = "text" id = "repass" placeholder = "Password again"/>
+			<br><br>
+			<input type="text" id="randomfield" disabled>
+			<br><br>
+			<input id="CaptchaEnter" size="20" maxlength="6" placeholder = "Captcha"/>
+			<br><br>
+			<button id = "btn">Register</button>
+		</div>
+		<script>
+			function ChangeCaptcha() {
+				var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+				var string_length = 6;
+				var ChangeCaptcha = '';
+				for (var i=0; i<string_length; i++) {
+					var rnum = Math.floor(Math.random() * chars.length);
+					ChangeCaptcha += chars.substring(rnum,rnum+1);
+				}
+				document.getElementById('randomfield').value = ChangeCaptcha;
+			}
+			$("#btn").click(function(){
+				var a1 = $("#user").val();
+				var a2 = $("#pass").val();
+				var a3 = $("#repass").val();
+				if(a1 == "" || a2 == "" || a3 == ""){
+					alert("Invalid data");
+					return;
+				}
+				if(a2 != a3){
+					alert("Passwords don't match");
+					return;
+				}
+				if(document.getElementById('CaptchaEnter').value != document.getElementById('randomfield').value){
+					alert("Esti chior");
+					return;
+				}
+				$.get("/selectall/", function(data){
+					var nr = data.length;
+					for (var i = 0; i < nr; ++i)
+						if(data[i].username == a1){
+							alert("Username already exists");
+							return;
+						}
+					var data = {};
+					data.user = a1;
+					data.pass = a2;
+					$.post("/insert", data, function(date){
+						console.log(date);					
+					}, "json");
+					alert("Account created succesfully! Redirecting you to login page");
+					window.location.href = "http://localhost:8000/login.html";
+				});
+			});
+		</script>
+	</body>
+</html>

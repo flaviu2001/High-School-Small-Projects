@@ -1,0 +1,16 @@
+<html>
+	<head>
+		<title>neww page</title>
+		<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<div class = "result"></div>
+		<script>
+			$.get("/selectall", function(data){
+				var nr = data.length;
+				for (var i = 0; i < nr; ++i)
+					$(".result").append(data[i].id+" "+data[i].nume+" "+data[i].prenume+" "+data[i].clasa+" "+data[i].nota_info+"<br>");
+			});
+		</script>
+	</body>
+</html>

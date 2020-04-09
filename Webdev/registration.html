@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>tema</title>
+		<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	</head>
+
+	<body>
+		<p>nume</p>
+		<input type = "text" id = "nume"></type>
+		<p>prenume</p>
+		<input type = "text" id = "prenume"></type>
+		<p>username</p>
+		<input type = "text" id = "username"></type>
+		<p>pass</p>
+		<input type = "text" id = "pass"></type>
+		<p>repass</p>
+		<input type = "text" id = "repass"></type>
+		<br></br>		
+		<button id = "btn">submit</button>
+		<br></br>		
+		<br></br>		
+		<div class = "par">WILLKOMMEN FREUND</p>
+		<script>
+			$(".par").hide();
+			$("#btn").click(function(){
+				var a1 = $("#nume").val();
+				var a2 = $("#prenume").val();
+				var a3 = $("#username").val();
+				var a4 = $("#pass").val();
+				var a5 = $("#repass").val();		
+				if(a1 == "" || a2 == "" || a3 == "" || a4 == "" || a5 == "" || a4 != a5)
+					alert("error");
+				else{
+					$(".par").show();
+					var ok = confirm("Do you want to switch pages?");
+					if(ok){
+						window.location.href = "index.html";
+					}
+				}
+			});
+		</script>
+	</body>
+</html>
+

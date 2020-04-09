@@ -1,0 +1,26 @@
+<html>
+	<head>
+		<title>ye</title>
+		<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<input type = "text" id = "nota">
+		<button id = "btn">Click</button>
+		<div class = "result"></div>
+		<script>
+			$("#btn").click(function(){
+				$(".result").empty();
+				$.get("/selectall/"+$("#nota").val(), function(data){
+					var nr = data.length;
+					for (var i = 0; i < nr; ++i){
+						$(".result").append("id: "+data[i].id+"<br>");
+						$(".result").append("nume: "+data[i].nume+"<br>");
+						$(".result").append("prenume: "+data[i].prenume+"<br>");
+						$(".result").append("clasa: "+data[i].clasa+"<br>");
+						$(".result").append("nota_info: "+data[i].nota_info+"<br><br>");
+					}				
+				})			
+			});
+		</script>
+	</body>
+</html>

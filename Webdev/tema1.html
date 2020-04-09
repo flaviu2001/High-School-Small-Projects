@@ -1,0 +1,33 @@
+<html>
+	<head>
+		<title>tema</title>
+		<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<style>
+			body{
+				background-color: orange;
+			}
+		</style>
+	</head>
+	<body>
+		<input type = "text" id = "nume"></input>
+		<input type = "text" id = "prenume"></input>
+		<button id = "btn">submit</button>
+		<p id = "par"></p>
+		<script>
+			$("#btn").click(function(){
+				var a1 = $("#nume").val();
+				var a2 = $("#prenume").val();
+				if(a1 == "" || a2 == ""){
+					$("#par").empty();
+					$("#par").append("Error");
+				}else{
+					$("#par").empty();
+					$("#par").append(a1 + " " + a2);
+					$("#par").css("background-color", "white");
+					document.getElementById("nume").value = "";
+					document.getElementById("prenume").value = "";
+				}	
+			});
+		</script>
+	</body>
+</html>

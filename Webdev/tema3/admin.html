@@ -1,0 +1,80 @@
+<html>
+	<head>
+		<title>admin</title>
+		<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<button id = "btn1">All users</button>
+		</br>
+		<input type = "text" id = "txt2"/>
+		<button id = "btn2">First name and last name</button>
+		</br>
+		<input type = "text" id = "txt3"/>
+		<button id = "btn3">Update conns</button>
+		</br>
+		<input type = "text" id = "txt4" placeholder = "ID"/>
+		<input type = "text" id = "txt5pass" placeholder = "Pass"/>
+		<button id = "btn4">Change pass</button>
+		</br>
+		<input type = "text" id = "txt5"/>
+		<button id = "btn5">Show first n users</button>
+		</br>
+		<div class = "txt"></div>
+		<script>
+			$("#btn1").click(function(){
+				$(".txt").empty();
+				$.get("/selectall/", function(data){
+					var nr = data.length;
+					for (var i = 0; i < nr; ++i)
+						$(".txt").append(data[i].id + " " + data[i].first_name + " " + data[i].last_name + " " + data[i].username + " " + data[i].password + " " + data[i].conns + "</br>");
+				});
+			});
+			$("#btn2").click(function(){
+				$(".txt").empty();
+				$.get("/selectall/", function(data){
+					var lim = parseInt($("#txt2").val());
+					var nr = data.length;
+					for (var i = 0; i < nr; ++i)
+						if(data[i].conns >= lim)
+							$(".txt").append(data[i].first_name + " " + data[i].last_name + "</br>");
+				});
+			});
+			$("#btn3").click(function(){
+				$(".txt").empty();
+				var dat = {};
+				dat.id = parseInt($("#txt3").val());
+				$.post("/updatex", dat, function(date){}, "json");
+				$(".txt").append("Done");
+			});
+			$("#btn4").click(function(){
+				$(".txt").empty();
+				$.get("/selectall/", function(data){
+					var id = parseInt($("#txt4").val());
+					var pas = $("#txt5pass").val();
+					var nr = data.length;
+					for (var i = 0; i < nr; ++i)
+						if(data[i].id == id){
+							var dat = {};
+							dat.id = data[i].id;
+							dat.pass = pas;
+							$.post("/updatepass", dat, function(date){}, "json");
+							$(".txt").append("Password changed");
+							return;
+						}
+					$(".txt").append("No such id");
+				});
+			});
+			$("#btn5").click(function(){
+				$(".txt").empty();
+				$.get("/selectall/", function(data){
+					var lim = parseInt($("#txt5").val());
+					var nr = data.length;
+					if(lim < nr)
+						nr = lim;
+					for (var i = 0; i < nr; ++i)
+						$(".txt").append(data[i].id + " " + data[i].first_name + " " + data[i].last_name + " " + data[i].username + " " + data[i].password + " " + data[i].conns + "</br>");
+				});
+			});
+		</script>
+	</body>
+</html>

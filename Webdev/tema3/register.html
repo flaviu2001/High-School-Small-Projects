@@ -1,0 +1,54 @@
+<html>
+	<head>
+		<title>register</title>
+		<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<p>first name</p>
+		<input type = "text" id = "first"/>
+		<p>last name</p>
+		<input type = "text" id = "last"/>
+		<p>username</p>
+		<input type = "text" id = "user"/>
+		<p>password</p>
+		<input type = "text" id = "pass"/>
+		<p>retype password</p>
+		<input type = "text" id = "repass"/>
+		<button id = "btn">register</button>
+		<script>
+			$("#btn").click(function(){
+				var a1 = $("#user").val();
+				var a2 = $("#first").val();
+				var a3 = $("#last").val();
+				var a4 = $("#pass").val();
+				var a5 = $("#repass").val();
+				if(a1 == "" || a2 == "" || a3 == "" || a4 == "" || a5 == ""){
+					alert("Invalid data");
+					return;
+				}
+				if(a4 != a5){
+					alert("Passwords don't match");
+					return;
+				}
+				$.get("/selectall/", function(data){
+					var nr = data.length;
+					for (var i = 0; i < nr; ++i)
+						if(data[i].username == a1){
+							alert("Username already exists");
+							return;
+						}
+					var data = {};
+					data.first = a2;
+					data.last = a3;
+					data.user = a1;
+					data.pass = a4;
+					$.post("/insert", data, function(date){
+						console.log(date);					
+					}, "json");
+					alert("Account created succesfully! Redirecting you to login page");
+					window.location.href = "http://localhost:8000/login.html";
+				});
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,38 @@
+<html>
+	<head>
+		<title>login</title>
+		<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<p>username</p>
+		<input type = "text" id = "username"/>
+		<p>password</p>
+		<input type = "text" id = "password">
+		<button id = "btn">login</button>
+		<input type="button" onclick="location.href='http://localhost:8000/register.html';" value="Register" />
+		<script>
+			$("#btn").click(function(){
+				var a1 = $("#username").val();
+				var a2 = $("#password").val();
+				$.get("/selectall/", function(data){
+					var nr = data.length;
+					for (var i = 0; i < nr; ++i)
+						if(data[i].username == a1 && data[i].password == a2){
+							ok = true;
+							var dat = {};
+							dat.id = data[i].id;
+							$.post("/update", dat, function(date){
+								console.log(date);
+							}, "json");
+							var ok = confirm("Succesful login. Do you want to go to the main page?");
+							if(ok){
+								window.location.href = "http://localhost:8000/index.html";
+							}
+							return;
+						}
+					alert("Username or password wrong");
+				});
+			});
+		</script>
+	</body>
+</html>

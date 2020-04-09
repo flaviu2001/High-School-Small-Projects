@@ -1,0 +1,52 @@
+<html>
+	<head>
+		<title>insert</title>
+		<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<p>cpu</p>
+		<input type = "text" id = "cpu"/>
+		<p>gpu</p>
+		<input type = "text" id = "gpu"/>
+		<p>ram</p>
+		<input type = "text" id = "ram"/>
+		<p>mem</p>
+		<input type = "text" id = "mem"/>
+		<p>resx</p>
+		<input type = "text" id = "resx"/>
+		<p>resy</p>
+		<input type = "text" id = "resy"/>
+		<button id = "btn">insert</button>
+		<div class = "par"></div>
+		<script>
+			$("#btn").click(function(){
+				$(".par").empty();
+				var a1 = $("#cpu").val();
+				var a2 = $("#gpu").val();
+				var a3 = $("#ram").val();
+				var a4 = $("#mem").val();
+				var a5 = parseInt($("#resx").val());
+				var a6 = parseInt($("#resy").val());
+				if(a1 == "" || a2 == "" || a3 == "" || a4 == "" || $("#resx").val() == "" || $("#resy").val() == ""){
+					alert("Invalid data");
+					return;
+				}
+				var data = {};
+				data.cpu = a1;
+				data.gpu = a2;
+				data.ram = a3;
+				data.mem = a4;
+				data.resx = a5;
+				data.resy = a6;
+				$.post("/insert", data, function(date){}, "json");
+				$(".par").append("Laptop registered");
+				document.getElementById("cpu").value = "";
+				document.getElementById("gpu").value = "";
+				document.getElementById("ram").value = "";
+				document.getElementById("mem").value = "";
+				document.getElementById("resx").value = "";
+				document.getElementById("resy").value = "";
+			});
+		</script>
+	</body>
+</html>

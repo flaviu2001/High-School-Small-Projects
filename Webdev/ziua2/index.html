@@ -1,0 +1,20 @@
+<html>
+	<head>
+		<title>Page</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<button id = "btn">Click me</button>
+		<button id = "btn2">Cheng</button>
+		<div class = "message"></div>
+		<script>
+			$("#btn").click(function(){
+				$(".message").empty();
+				$(".message").append("Willkommen");
+			});
+			$("#btn2").click(function(){
+				window.location.href = "page.html";
+			});
+		</script>
+	</body>
+</html>
