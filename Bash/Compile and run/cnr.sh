@@ -62,7 +62,7 @@ for location in $things; do
 	continue
     fi
     if [ -f "$location" ] && [ $(echo $location | grep -c "\(${term}$\)\|\(.h$\)") -eq 1 ]; then
-	files[$position]="$location"
+	files[$position]="\"$location\""
 	position=$(($position+1))
 	if [ $(grep -c "int main(" "$location") -eq 1 ];then
 	    mainfile="$(echo "$location" | sed "s/${term}$//")"
@@ -74,7 +74,7 @@ for location in $things; do
 	IFS=$'\n'
 	for source_file in $(eval "find \"$location\" $non_recursive"); do
 	    if [ -f "$source_file" ] && [ $(echo $source_file | grep -c "\(${term}$\)\|\(.h$\)") -eq 1 ]; then
-		files[$position]="$source_file"
+		files[$position]="\"$source_file\""
 		position=$(($position+1))
 		if [ $(grep -c "int main(" "$source_file") -eq 1 ];then
 		    mainfile="$(echo "$source_file" | sed "s/${term}$//")"
@@ -84,39 +84,40 @@ for location in $things; do
 	IFS=$bkp2
     fi
 done
+IFS=$bkp
 
 mainfile=$(readlink -f "$mainfile")
 
 if [ "$name" == "cnrc" ]; then
-    if eval gcc -std=c11 -Wall -O2 -g "${files[@]}" -o "$mainfile" $gcclib; then
-	if $super_valgrind; then
-	    valgrind --leak-check=full "$mainfile"
-	elif $enable_valgrind; then
-	    valgrind "$mainfile"
-	else
-	     eval "$mainfile $my_args"
-	fi
-	if ! $no_remove; then
-	    rm "$mainfile"
-	fi
-	exit 0
+    if eval "gcc -Wall -O2 -g ${files[@]} -o \"$mainfile\" $gcclib"; then
+		if $super_valgrind; then
+		    valgrind --leak-check=full "$mainfile"
+		elif $enable_valgrind; then
+		    valgrind "$mainfile"
+		else
+		     eval "\"$mainfile\" $my_args"
+		fi
+		if ! $no_remove; then
+		    rm "$mainfile"
+		fi
+		exit 0
     fi
     exit 1
 fi
 
 if [ "$name" == "cnr" ]; then
-    if eval g++ -std=c++14 -Wall -O2 -g "${files[@]}" -o "$mainfile" $gcclib; then
-	if $super_valgrind; then
-	    valgrind --leak-check=full "$mainfile"
-	elif $enable_valgrind; then
-	    valgrind "$mainfile"
-	else
-	    eval "$mainfile $my_args"
-	fi
-	if ! $no_remove; then
-	    rm "$mainfile"
-	fi
-	exit 0
+    if eval "g++ -std=c++14 -Wall -O2 -g ${files[@]} -o \"$mainfile\" $gcclib"; then
+		if $super_valgrind; then
+		    valgrind --leak-check=full "$mainfile"
+		elif $enable_valgrind; then
+		    valgrind "$mainfile"
+		else
+		    eval "\"$mainfile\" $my_args"
+		fi
+		if ! $no_remove; then
+		    rm "$mainfile"
+		fi
+		exit 0
     fi
     exit 1
 fi
