@@ -1,6 +1,8 @@
 #!/bin/bash
 #cnr - Compile and Run
 
+#Setting up variables
+
 name=$(basename "$0")
 term=".cpp"
 things=""
@@ -14,11 +16,15 @@ no_run=false
 my_args=""
 gcclib=""
 compiler="g++ -std=c++14"
+time_cmd=""
+err_redir=""
 
 if [ "$name" == "cnrc" ]; then
 	compiler="gcc"
 	term=".c"
 fi
+
+#Parsing parameters
 
 while [ $# -gt 0 ]; do
 	if [ "$1" == "-l" ]; then
@@ -26,7 +32,7 @@ while [ $# -gt 0 ]; do
 		if [ $# -eq 0 ]; then
 			echo "You have not specified any library."
 		else
-			gcclib="-l $1"
+			gcclib="$gcclib ""-l $1"
 		fi
 	elif [ "$1" == "-a" ]; then
 		shift 1
@@ -48,6 +54,10 @@ while [ $# -gt 0 ]; do
 		no_remove=true
 	elif [ "$1" == "-c" ]; then
 		no_run=true
+	elif [ "$1" == "-t" ]; then
+		time_cmd="time "
+	elif [ "$1" == "-s" ]; then
+		err_redir=" 2> /dev/null"
 	else
 		things="$things"$'\n'"$1"
 	fi
@@ -58,6 +68,8 @@ if [ "$things" == "" ]; then
 	things=$PWD
 fi
 
+#Searching for files
+
 bkp=$IFS
 IFS=$'\n'
 for location in $things; do
@@ -65,12 +77,15 @@ for location in $things; do
 		echo "$location is not a valid directory or file."
 		continue
 	fi
+
 	if [ -f "$location" ] && [ $(echo $location | grep -c "\(${term}$\)\|\(.h$\)") -eq 1 ]; then
 		files[$position]="\"$location\""
 		position=$(($position+1))
 		if [ $(grep -c "int main(" "$location") -eq 1 ];then
 			mainfile="$(echo "$location" | sed "s/${term}$//")"
 		fi
+	elif [ -f "$location" ]; then
+		echo "$location does not terminate with .cpp"
 	fi
 
 	if [ -d "$location" ]; then
@@ -90,19 +105,22 @@ for location in $things; do
 done
 IFS=$bkp
 
+#Compiling and running files found
+
 mainfile=$(readlink -f "$mainfile")
 
 echo "------COMPILING------"
-if eval "$compiler -Wall -O2 -g ${files[@]} -o \"$mainfile\" $gcclib"; then
+if eval "$compiler -Wall -O2 -g ${files[@]} -o \"$mainfile\" $gcclib$err_redir"; then
 	if ! $no_run; then
 		echo "------RUNNING PROGRAM------"
 		ulimit -s unlimited
-		eval "$valgrind_cmd\"$mainfile\" $my_args"
+		eval "$time_cmd$valgrind_cmd\"$mainfile\" $my_args"
 		if ! $no_remove; then
-			echo "------REMOVING EXECUTABLE------"
 			rm "$mainfile"
 		fi
+		echo "------FINISHED------"
 	fi
 	exit 0
 fi
+echo "------COMPILATION FAILED------"
 exit 1

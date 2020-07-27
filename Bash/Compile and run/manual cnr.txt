@@ -34,6 +34,12 @@ All following arguments will be assumed to be arguments for your executable, the
 
 .IP -c
 The executable is not run and not removed either, you have simply compiled without running (useful instead of typing all arguments for gcc)
+
+.IP -t
+Call time on the executable to see the elapsed time of the running program
+
+.IP -s
+Silences compiler messages (errors and warnings)
 .SH AUTHOR
 Written by Craciun Ioan-Flaviu (jack)
 .SH SEE ALSO
