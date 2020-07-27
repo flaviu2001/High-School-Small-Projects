@@ -31,6 +31,9 @@ The next argument after -l will be given to gcc/g++, for example gcc -l pthread
     
 .IP -a
 All following arguments will be assumed to be arguments for your executable, they will appear in char **argv
+
+.IP -c
+The executable is not run and not removed either, you have simply compiled without running (useful instead of typing all arguments for gcc)
 .SH AUTHOR
 Written by Craciun Ioan-Flaviu (jack)
 .SH SEE ALSO
