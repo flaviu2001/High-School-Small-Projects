@@ -7,4 +7,4 @@ In the Algorithms folder you'll find a few implementations of well known techniq
 
 Java, Python and Webdev are folders which contain projects i did in highschool to learn different languages as i only used up until that point c++, i have reddit bots, a simple login page and a sudoku solver in Java for example.
 
-I have also written a bash script for compiling and running c++ files in one go with various options and the ability of taking all .c/.cpp files from a folder (or several).
+The templates are used by me in competitive programming to ease my work instead of typing each solution from scratch.
