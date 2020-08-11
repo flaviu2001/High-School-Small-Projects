@@ -6,5 +6,3 @@ You will find the algorithmics solutions in the ONI (National Olympiad in Inform
 In the Algorithms folder you'll find a few implementations of well known techniques and data structures which i wrote to help figure out later in case i forget them.
 
 Java, Python and Webdev are folders which contain projects i did in highschool to learn different languages as i only used up until that point c++, i have reddit bots, a simple login page and a sudoku solver in Java for example.
-
-The templates are used by me in competitive programming to ease my work instead of typing each solution from scratch.
