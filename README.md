@@ -1,4 +1,4 @@
-# Personal small projects
+# High school small projects
 A collection of all of my source codes from high school which are solutions to various problems on sites like infoarena.ro codeforces.com and others.
 
 You will find the algorithmics solutions in the ONI (National Olympiad in Informatics) folder, those are all the source codes of problems i solved to train myself for competitions. All 692 c++ files were written by me over the span of 4 years.
